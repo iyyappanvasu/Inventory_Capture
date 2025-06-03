@@ -1,0 +1,285 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f6f8;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  background-color: #f4f6f8;
+  padding: 20px;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+}
+
+header .logo {
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  border-radius: 6px;
+}
+
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+
+.container {
+  background-color: white;
+  max-width: 500px;
+  margin: 60px auto;
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  flex-grow: 1;
+}
+
+.container h2 {
+  text-align: center;
+  color: #004080;
+  margin-bottom: 30px;
+}
+
+label {
+  display: block;
+  margin-top: 0px;
+  font-weight: bold;
+}
+
+.input-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: nowrap;
+}
+
+.input-row label {
+  text-align: center;
+  width: 100px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.input-row input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  min-width: 0;
+}
+
+.input-row input[type="password"] {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  min-width: 0;
+}
+
+.btn {
+  display: none;
+  /* hide submit */
+}
+
+.exit-btn {
+  background-color: rgb(231, 9, 9);
+  color: white;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+.exit-btn:hover {
+  background-color: rgb(180, 0, 0);
+}
+
+.esc-button {
+  background-color: red;
+  color: azure;
+  padding: 7px 12px;
+  border-radius: 5px;
+  margin-top: 10px;
+  border-width: 0px;
+  margin-left: 30px;
+  cursor: pointer;
+}
+
+footer {
+  width: 100%;
+  background-color: #004080;
+  color: white;
+  text-align: center;
+  padding: 12px;
+  font-size: 14px;
+}
+
+.container-items {
+  display: flexbox;
+  flex-direction: column;
+}
+
+.message-alert {
+  color: green;
+  background-color: #d4edda;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid green;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+.exe-btn {
+  background-color: rgb(231, 9, 9);
+  color: white;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+.exe-btn:hover {
+  background-color: rgb(180, 0, 0);
+}
+
+.execute-button {
+  background-color: blue;
+  color: azure;
+  padding: 7px 12px;
+  border-radius: 5px;
+  margin-top: 10px;
+  border-width: 0px;
+  margin-left: 30px;
+  cursor: pointer;
+}
+
+.logout-button {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #d9534f;
+  /* Bootstrap danger red */
+  color: white;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  margin: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #c9302c;
+}
+
+.top-right {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  text-align: center;
+}
+
+.logo {
+  width: 60px;
+  /* or any size you want */
+  height: auto;
+  display: block;
+  margin: 0 auto 10px auto;
+  /* centers the logo and adds spacing below */
+}
+
+.logout-button {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #d9534f;
+  color: white;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #c9302c;
+}
+
+@media (max-width: 600px) {
+  .top-right {
+    top: 10px;
+    right: 10px;
+  }
+
+  .logo {
+    width: 45px;
+  }
+
+  .logout-button {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+}
+
+.logo-skandh {
+  display: inline-block;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+
+  /* Optional: hover effect */
+  /* Responsive tweak (optional for very small screens) */
+  @media (max-width: 600px) {
+    .logout-button {
+      padding: 6px 12px;
+      font-size: 0.9rem;
+      top: 10px;
+      right: 10px;
+    }
+  }
+
+}
+
+.message-warning {
+  color: rgb(128, 0, 0);
+  background-color: #d4edda;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid rgb(128, 0, 21);
+}

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Owner Page</title>
+  {% load static %}
+  <link rel="icon" type="image/png" href="{% static 'image/S3 main logopreview.png' %}">
+  <link rel="stylesheet" href="{% static 'css/Inventory.css' %}" />
+  <script>
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        document.querySelector("form").submit();  // This submits the form
+      }
+    });
+  </script>
+
+
+
+
+</head>
+
+<body>
+  <header>
+    <img src="{% static 'image/skandh logo.png' %}" style="
+        display: inline-block;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 1000;
+      /* Optional: hover effect */
+      /* Responsive tweak (optional for very small screens) */
+      @media (max-width: 600px) {
+        .logout-button {
+          padding: 6px 12px;
+          font-size: 0.9rem;
+          top: 10px;
+          right: 10px;
+        }}" alt="Company logo" class="logo">
+    <img src="{% static 'image/th.jpg' %}" style="
+        display: inline-block;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+      /* Optional: hover effect */
+      /* Responsive tweak (optional for very small screens) */
+      @media (max-width: 600px) {
+        .logout-button {
+          padding: 6px 12px;
+          font-size: 0.9rem;
+          top: 10px;
+          right: 10px;
+        }}" alt="Company logo" class="logo">
+  </header>
+  <a href="{% url 'logout' %}">
+    <button style="
+              display: inline-block;
+              padding: 6px 10px;
+              background-color: #d9534f; /* Bootstrap danger red */
+              color: white;
+              text-decoration: none;
+              border: none;
+              border-radius: 5px;
+              font-weight: bold;
+              cursor: pointer;
+              transition: background-color 0.3s ease;
+              margin-top: 50px;
+              position: absolute;
+              top: 20px;
+              right: 20px;
+              z-index: 1000;
+            /* Optional: hover effect */
+            .logout-button:hover {
+              background-color: #c9302c;
+            }
+            
+            /* Responsive tweak (optional for very small screens) */
+            @media (max-width: 600px) {
+              .logout-button {
+                padding: 6px 12px;
+                font-size: 0.9rem;
+                top: 10px;
+                right: 10px;}
+              }
+            
+            ">Logout</button> </a>
+
+
+  <div class="container">
+    <h2>Inventory Capture</h2>
+    <form method="post">
+      {% csrf_token %}
+      <div class="input-row"><label>Owner Name:</label><input type="text" name="owner" autocomplete="off" required>
+      </div>
+    </form>
+  </div>
+</body>
+
+</html>

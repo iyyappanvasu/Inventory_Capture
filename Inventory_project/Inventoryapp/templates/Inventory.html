@@ -1,0 +1,37 @@
+<!Doctype html>
+<html>
+
+<head>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'Inventory.css' %}" />
+  <title>Inventory Capture</title>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Inventory Capture</h2>
+    <form action="" method="POST">
+      {% csrf_token %}
+      <label for="location">Location:</label>
+      <input type="text" name="location" placeholder="Enter the Location" required />
+
+      <label for="sku">SKU:</label>
+      <input type="text" name="sku" placeholder="Enter the SKU" required />
+
+      <label for="case">Case:</label>
+      <input type="text" name="case" placeholder="Enter the Case" required />
+
+      <label for="quantity">Quantity:</label>
+      <input type="text" name="quantity" placeholder="Enter the Quantity" required />
+
+      <div class="submit">
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+
+
+
+</body>
+
+</html>

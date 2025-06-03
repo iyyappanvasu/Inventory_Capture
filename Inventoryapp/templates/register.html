@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Register</title>
+  {% load static %}
+  <link rel="icon" type="image/png" href="{% static 'image/S3 main logopreview.png' %}">
+  <link rel="stylesheet" href="{% static 'css/Inventory.css' %}" />
+</head>
+
+<body>
+  <header>
+    <img src="{% static 'image/skandh logo.png' %}" style="
+        display: inline-block;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 1000;
+      /* Optional: hover effect */
+      /* Responsive tweak (optional for very small screens) */
+      @media (max-width: 600px) {
+        .logout-button {
+          padding: 6px 12px;
+          font-size: 0.9rem;
+          top: 10px;
+          right: 10px;
+        }}" alt="Company logo" class="logo">
+    <img src="{% static 'image/th.jpg' %}" style="
+        display: inline-block;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+      /* Optional: hover effect */
+      /* Responsive tweak (optional for very small screens) */
+      @media (max-width: 600px) {
+        .logout-button {
+          padding: 6px 12px;
+          font-size: 0.9rem;
+          top: 10px;
+          right: 10px;
+        }}" alt="Company logo" class="logo">
+  </header>
+  <a href="{% url 'logout' %}">
+    <button style="
+              display: inline-block;
+              padding: 8px 16px;
+              background-color: #d9534f; /* Bootstrap danger red */
+              color: white;
+              text-decoration: none;
+              border: none;
+              border-radius: 5px;
+              font-weight: bold;
+              cursor: pointer;
+              transition: background-color 0.3s ease;
+              margin-top: 50px;
+              position: absolute;
+              top: 20px;
+              right: 20px;
+              z-index: 1000;
+            /* Optional: hover effect */
+            .logout-button:hover {
+              background-color: #c9302c;
+            }
+            
+            /* Responsive tweak (optional for very small screens) */
+            @media (max-width: 600px) {
+              .logout-button {
+                padding: 6px 12px;
+                font-size: 0.9rem;
+                top: 10px;
+                right: 10px;}
+              }
+            
+            ">Logout</button> </a>
+
+
+  <div class="container">
+    <h2>Register</h2>
+    <form method="POST">
+      {% csrf_token %}
+      <div class="input-row"><label>Username:</label><input type="text" name="username" required></div>
+      <div class="input-row"><label>Password:</label><input type="password" style="  flex: 1;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        min-width: 0;" name="password1" required></div>
+      <div class="input-row"><label>
+          <p style="margin-bottom: 2px;">Confirm</p>
+          <p style="margin-top: 0px;">Password:</p>
+        </label><input type="password" name="password2" style="  flex: 1;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        min-width: 0;" required></div>
+      <button type="submit" style=" background-color: blue;
+      color: azure;
+      padding: 7px 12px;
+      border-radius: 5px;
+      margin-top: 10px;
+      border-width: 0px;
+      margin-right: 10px;
+      margin-left: 250px;
+
+      cursor: pointer;">Register</button>
+    </form>
+    {% if messages %}
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %}
+    {% endif %}
+  </div>
+</body>
+
+</html>
