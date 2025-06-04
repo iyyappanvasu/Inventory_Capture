@@ -31,7 +31,7 @@ def export_datas_to_excel(request):
             messages.warning(request, "Sorry, no data found to export!")
             return redirect("inventory")
 
-        # ================== Data Sheet ==================
+        # Data Sheet
         df_data = df[['asn_number', 'owner']].drop_duplicates()
         df_data['STATUS'] = 0
         df_data = df_data[['asn_number', 'owner', 'STATUS']]
@@ -44,7 +44,7 @@ def export_datas_to_excel(request):
             data_rows.append(['', ''] + row.tolist())
         df_data_final = pd.DataFrame(data_rows, columns=data_headers)
 
-        # ================== Detail Sheet ==================
+        #  Detail Sheet
         df_detail = df[['asn_number', 'sku', 'owner', 'line_number', 'Quantity', 'uom', 'TOID', 'location']]
         detail_desc = ['Column Name', 'GenericKey', 'RECEIPTKEY', 'SKU', 'STORERKEY',
                        'RECEIPTLINENUMBER', 'QTYEXPECTED', 'UOM', 'TOID', 'TOLOC']
@@ -56,7 +56,7 @@ def export_datas_to_excel(request):
             detail_rows.append(['', ''] + row.tolist())
         df_detail_final = pd.DataFrame(detail_rows, columns=detail_headers)
 
-        # ================== Validations Sheet ==================
+        #  Validations Sheet 
         validation_data = [
             ['Date Format', 'M/d/yy h:mm a', 'MM=Month, dd=Day, yy=Year, mm=Minute, hh=Hour'],
             ['Time Zone', '(GMT-05:00) Eastern Time (US & Canada)', 'America/New_York'],
@@ -64,7 +64,7 @@ def export_datas_to_excel(request):
         ]
         df_validations = pd.DataFrame(validation_data)
 
-        # ================== Write to Excel ==================
+        #  Write to Excel 
         output = BytesIO()
         with pd.ExcelWriter(output, engine='openpyxl') as writer:
             df_data_final.to_excel(writer, index=False, header=False, sheet_name='Data')
@@ -78,7 +78,7 @@ def export_datas_to_excel(request):
         )
         response['Content-Disposition'] = 'attachment; filename=inventory_data.xlsx'
 
-        # ================== Update DB Status ==================
+        #  Update DB Status
         ids = df['id'].tolist()
         if ids:
             format_strings = ','.join(['%s'] * len(ids))
