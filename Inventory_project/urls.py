@@ -10,6 +10,7 @@ urlpatterns = [
     path('download_inventory/',views.DownloadInventory,name="download_inventory"), # this url is for the download inventory (backup for testing)
     path('download_excel/',views.download_excel_view, name='download_excel'), # this url is for the download excel ( for testing)
     path('nextup/', views.nextup_number_view, name='nextup-number'), # this url is to generate the asn number in Nextupnumber table ( for testing)
+    
 
     #this is for the testing purpose
     path('download-inventory/', views.download_inventory_view, name='download-inventory'),

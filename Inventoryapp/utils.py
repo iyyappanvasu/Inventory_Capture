@@ -5,26 +5,52 @@ from django.db import transaction, DatabaseError
 User = get_user_model()
 
 def add_inventory(owner, location, case, sku, uom, record_count, quantity, status, username):
-    MAX_RECORDS_PER_ASN = 2
-    total_records = record_count
-    prefix = 'ASN'
-
+    """
+    Handles inventory insertion and ASN generation logic.
+    Uses max_records_per_asn limit from DB.
+    """
     try:
         with transaction.atomic():
-            last_asn_obj = DownloadInventory.objects.order_by('-asn_number', '-line_number').first()
+            # 🧠 Load ASN tracking data or create new if not exists
+            nextup = NextupNumber.objects.first()
+            if not nextup:
+                nextup = NextupNumber.objects.create(
+                    Starting_Number="ASN0000001",
+                    Ending_Number="ASN9999999",
+                    Current_Number="ASN0000001",
+                    Next_Number="ASN0000002",
+                    prefix="ASN",
+                    max_records_per_asn=5,
+                    created_username=username,
+                    updated_username=username
+                )
 
+            MAX_RECORDS_PER_ASN = nextup.NUMBEROFLINES
+            prefix = nextup.prefix
+            total_records = record_count
+
+            # 📌 Get last ASN info
+            last_asn_obj = DownloadInventory.objects.order_by('-asn_number', '-line_number').first()
             if last_asn_obj and last_asn_obj.asn_number:
+                last_owner = last_asn_obj.owner
                 asn_str = last_asn_obj.asn_number
+
                 if asn_str.startswith(prefix):
                     num_part = asn_str[len(prefix):]
                     last_asn_num = int(num_part) if num_part.isdigit() else 1
                 else:
                     last_asn_num = 1
+
                 last_line_number = int(last_asn_obj.line_number) if last_asn_obj.line_number else 0
+
+                if last_owner != owner:
+                    last_asn_num += 1
+                    last_line_number = 0
             else:
                 last_asn_num = 1
                 last_line_number = 0
 
+            # ➕ Add inventory records
             while total_records > 0:
                 if last_line_number < MAX_RECORDS_PER_ASN:
                     remaining_space = MAX_RECORDS_PER_ASN - last_line_number
@@ -34,7 +60,6 @@ def add_inventory(owner, location, case, sku, uom, record_count, quantity, statu
 
                     for i in range(1, records_to_add + 1):
                         line_number = last_line_number + i
-
                         DownloadInventory.objects.create(
                             owner=owner,
                             location=location,
@@ -53,22 +78,12 @@ def add_inventory(owner, location, case, sku, uom, record_count, quantity, statu
                     last_asn_num += 1
                     last_line_number = 0
 
-            nextup = NextupNumber.objects.first()
-            if nextup:
-                nextup.Current_Number = f"{prefix}{last_asn_num:07d}"
-                nextup.Next_Number = f"{prefix}{last_asn_num + 1:07d}"
-                nextup.updated_username = username
-                nextup.save()
-            else:
-                NextupNumber.objects.create(
-                    Starting_Number=f"{prefix}0000001",
-                    Ending_Number=f"{prefix}9999999",
-                    Current_Number=f"{prefix}{last_asn_num:07d}",
-                    Next_Number=f"{prefix}{last_asn_num + 1:07d}",
-                    prefix=prefix,
-                    created_username=username,
-                    updated_username=username
-                )
+            # 🔁 Update ASN tracking
+            nextup.Current_Number = f"{prefix}{last_asn_num:07d}"
+            nextup.Next_Number = f"{prefix}{last_asn_num + 1:07d}"
+            nextup.updated_username = username
+            nextup.save()
+
     except DatabaseError as e:
         print(f"Database error in add_inventory: {e}")
         return False
@@ -80,6 +95,9 @@ def add_inventory(owner, location, case, sku, uom, record_count, quantity, statu
 
 
 def get_next_asn(user_id):
+    """
+    Retrieves the next available ASN number and updates the ASN tracking model.
+    """
     try:
         nextup = NextupNumber.objects.first()
         if not nextup:
@@ -88,10 +106,12 @@ def get_next_asn(user_id):
                 Ending_Number="ASN999999",
                 Current_Number="ASN000001",
                 Next_Number="ASN000002",
+                prefix="ASN",
+                max_records_per_asn=5
             )
 
         current_number = nextup.Next_Number
-        prefix = "ASN"
+        prefix = nextup.prefix or "ASN"
         number = int(current_number.replace(prefix, ""))
         next_number = prefix + str(number + 1).zfill(6)
 

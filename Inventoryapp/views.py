@@ -11,7 +11,7 @@ from .utils import add_inventory
 from .export_excel import export_datas_to_excel
 import logging
 
-logger = logging.getLogger(__name__)  # For optional logging
+logger = logging.getLogger(__name__)  # For optional logging (BACKUP)
 
 def login_view(request):
     if request.method == 'POST':
@@ -67,6 +67,7 @@ def register_view(request):
             messages.error(request, f"Registration Error: {str(e)}")
             logger.exception("Registration error")
     return render(request, 'register.html')
+
 
 
 def owner_view(request):

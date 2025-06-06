@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils import timezone
 
-
 class InventoryCapture(models.Model):
     owner = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
@@ -42,6 +41,8 @@ class NextupNumber(models.Model):
     Current_Number = models.CharField(max_length=50)
     Next_Number = models.CharField(max_length=50)
     prefix = models.CharField(max_length=10, default='ASN')
+
+    NUMBEROFLINES = models.IntegerField(default=5)  #  Line limit stored in DB
 
     created_date = models.DateTimeField(blank=True, null=True)
     updated_datetime = models.DateTimeField(blank=True, null=True)
