@@ -11,7 +11,7 @@ def add_inventory(owner, location, case, sku, uom, record_count, quantity, statu
     """
     try:
         with transaction.atomic():
-            # 🧠 Load ASN tracking data or create new if not exists
+            #  Load ASN tracking data or create new if not exists
             nextup = NextupNumber.objects.first()
             if not nextup:
                 nextup = NextupNumber.objects.create(
@@ -20,7 +20,7 @@ def add_inventory(owner, location, case, sku, uom, record_count, quantity, statu
                     Current_Number="ASN0000001",
                     Next_Number="ASN0000002",
                     prefix="ASN",
-                    max_records_per_asn=5,
+                    NUMBEROFLINES=5,
                     created_username=username,
                     updated_username=username
                 )
@@ -29,10 +29,10 @@ def add_inventory(owner, location, case, sku, uom, record_count, quantity, statu
             prefix = nextup.prefix
             total_records = record_count
 
-            # 📌 Get last ASN info
+            #  Get last ASN info
             last_asn_obj = DownloadInventory.objects.order_by('-asn_number', '-line_number').first()
             if last_asn_obj and last_asn_obj.asn_number:
-                last_owner = last_asn_obj.owner
+                last_owner = last_asn_obj.owner # Getting owner in this
                 asn_str = last_asn_obj.asn_number
 
                 if asn_str.startswith(prefix):
@@ -43,14 +43,14 @@ def add_inventory(owner, location, case, sku, uom, record_count, quantity, statu
 
                 last_line_number = int(last_asn_obj.line_number) if last_asn_obj.line_number else 0
 
-                if last_owner != owner:
+                if last_owner != owner: # owner validation
                     last_asn_num += 1
                     last_line_number = 0
             else:
                 last_asn_num = 1
                 last_line_number = 0
 
-            # ➕ Add inventory records
+            #  Add inventory records
             while total_records > 0:
                 if last_line_number < MAX_RECORDS_PER_ASN:
                     remaining_space = MAX_RECORDS_PER_ASN - last_line_number
@@ -78,7 +78,7 @@ def add_inventory(owner, location, case, sku, uom, record_count, quantity, statu
                     last_asn_num += 1
                     last_line_number = 0
 
-            # 🔁 Update ASN tracking
+            #  Update ASN tracking
             nextup.Current_Number = f"{prefix}{last_asn_num:07d}"
             nextup.Next_Number = f"{prefix}{last_asn_num + 1:07d}"
             nextup.updated_username = username
@@ -107,7 +107,7 @@ def get_next_asn(user_id):
                 Current_Number="ASN000001",
                 Next_Number="ASN000002",
                 prefix="ASN",
-                max_records_per_asn=5
+                NUMBEROFLINES=5
             )
 
         current_number = nextup.Next_Number

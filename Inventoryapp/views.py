@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.http import JsonResponse
@@ -11,8 +11,10 @@ from .utils import add_inventory
 from .export_excel import export_datas_to_excel
 import logging
 
-logger = logging.getLogger(__name__)  # For optional logging (BACKUP)
+logger = logging.getLogger(__name__)
 
+
+# Handles user login functionality including authentication and session setup
 def login_view(request):
     if request.method == 'POST':
         try:
@@ -31,7 +33,7 @@ def login_view(request):
 
             if user:
                 login(request, user)
-                return redirect('owner')
+                return redirect('main')
             else:
                 messages.error(request, 'Invalid Username/Password')
 
@@ -39,10 +41,11 @@ def login_view(request):
             messages.error(request, f"Database Error during login: {str(db_err)}")
         except Exception as e:
             messages.error(request, f"Unexpected Login Error: {str(e)}")
-            logger.exception("Login error")  # Optional
+            logger.exception("Login error")
     return render(request, 'login.html')
 
 
+# Handles user registration with validation, password match check, and user creation
 def register_view(request):
     if request.method == 'POST':
         try:
@@ -69,7 +72,14 @@ def register_view(request):
     return render(request, 'register.html')
 
 
+# Renders the main landing page after successful authentication
+def main_view(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    return render(request, 'main.html')
 
+
+# Captures and stores owner name from form, stores in session, and redirects to inventory page
 def owner_view(request):
     try:
         if not request.user.is_authenticated:
@@ -82,6 +92,7 @@ def owner_view(request):
                 return render(request, 'owner.html')
             request.session['owner'] = owner
             return redirect('inventory')
+
         return render(request, 'owner.html')
     except Exception as e:
         messages.error(request, f"Owner View Error: {str(e)}")
@@ -89,6 +100,7 @@ def owner_view(request):
         return render(request, 'owner.html')
 
 
+# Captures inventory fields from user, inserts into database, and generates ASN details
 def inventory_view(request):
     try:
         if not request.user.is_authenticated:
@@ -136,6 +148,7 @@ def inventory_view(request):
     return render(request, "Inventory.html")
 
 
+# Logs out the currently logged-in user and redirects to login page
 def logout_view(request):
     try:
         logout(request)
@@ -146,6 +159,7 @@ def logout_view(request):
         return redirect('login')
 
 
+# Returns ASN tracking details as JSON for debugging or UI display
 def nextup_number_view(request):
     try:
         nextup = NextupNumber.objects.first()
@@ -168,6 +182,7 @@ def nextup_number_view(request):
         return JsonResponse({"error": str(e)}, status=500)
 
 
+# Returns all inventory records as JSON for API or front-end consumption
 def download_inventory_view(request):
     try:
         records = DownloadInventory.objects.all().values()
@@ -180,6 +195,7 @@ def download_inventory_view(request):
         return JsonResponse({"error": str(e)}, status=500)
 
 
+# Initiates Excel export of all inventory records and sends it as file download
 def download_excel_view(request):
     try:
         return export_datas_to_excel(request)

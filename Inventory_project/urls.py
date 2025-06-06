@@ -3,6 +3,7 @@ from Inventoryapp import views
 
 urlpatterns = [
     path('', views.login_view, name='login'),          #this url is for the login page     
+    path('main/', views.main_view, name='main'),
     path('register/', views.register_view, name='register'),  # this url is register page (backup for future use) 
     path('owner/', views.owner_view, name='owner'), # this url is for the owner page          
     path('inventory/', views.inventory_view, name='inventory'), #this url is for the inventory page

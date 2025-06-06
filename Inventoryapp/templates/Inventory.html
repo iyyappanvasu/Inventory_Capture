@@ -85,26 +85,6 @@
     <a href="{% url 'owner' %}" class="exit-button" title="Escape">
       <button class="esc-button">ESC</button>
     </a>
-    <a href="{% url 'download_excel' %}" class="exe-button" title="Download Excel">
-      <button style=" background-color: blue;
-      color: azure;
-      padding: 7px 12px;
-      border-radius: 5px;
-      margin-top: 10px;
-      border-width: 0px;
-      margin-right: 10px;
-      margin-left: 150px;
-
-      cursor: pointer;">Download </button>
-    </a>
-    {% if messages %}
-    {% for message in messages %}
-    <div class="message-alert fade-message">
-      {{ message }}
-    </div>
-    {% endfor %}
-    {% endif%}
-
 
   </div>
 
