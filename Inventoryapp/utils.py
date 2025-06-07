@@ -20,7 +20,7 @@ def add_inventory(owner, location, case, sku, uom, record_count, quantity, statu
                     Current_Number="ASN0000001",
                     Next_Number="ASN0000002",
                     prefix="ASN",
-                    NUMBEROFLINES=5,
+                    NUMBEROFLINES=0, #it determines number of lines(limit of the asn) 
                     created_username=username,
                     updated_username=username
                 )

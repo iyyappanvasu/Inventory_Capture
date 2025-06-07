@@ -1,0 +1,277 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: white;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Logo */
+.logo {
+  width: 5px;
+  height: auto;
+  display: block;
+  margin: 0 auto 10px auto;
+}
+
+/* Container */
+.container {
+  background-color: white;
+  max-width: 500px;
+  margin: 60px auto;
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  flex-grow: 1;
+}
+
+.container h2 {
+  text-align: center;
+  color: #004080;
+  margin-bottom: 30px;
+}
+
+/* Input styles */
+label {
+  display: block;
+  margin-top: 0px;
+  font-weight: bold;
+}
+
+.input-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: nowrap;
+}
+
+.input-row label {
+  text-align: center;
+  width: 100px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.input-row input[type="text"],
+.input-row input[type="password"] {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  min-width: 0;
+}
+
+/* Title */
+.title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Hidden button */
+.btn {
+  display: none;
+}
+
+/* Buttons */
+.esc-button {
+  background-color: rgb(231, 9, 9);
+  color: white;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+
+.login-button {
+  background-color: blue;
+  color: azure;
+  padding: 7px 12px;
+  border-radius: 5px;
+  margin-top: 10px;
+  border: none;
+  cursor: pointer;
+  margin-left: 250px;
+  margin-right: 10px;
+}
+
+
+.esc-button {
+  background-color: red;
+  color: azure;
+  padding: 7px 12px;
+  border-radius: 5px;
+  margin-top: 10px;
+  border: none;
+  margin-left: 30px;
+  cursor: pointer;
+}
+
+/* Message Alerts */
+/* Message Alerts */
+.message-success {
+  color: green;
+  background-color: #d4edda;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid green;
+  text-align: center;
+}
+
+.message-error {
+  color: rgb(128, 0, 0);
+  background-color: #f8d7da;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid rgb(128, 0, 21);
+  text-align: center;
+}
+
+.message-warning {
+  color: #856404;
+  background-color: #fff3cd;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ffeeba;
+  text-align: center;
+}
+
+/* Layout Helpers */
+.container-items {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Top Right Section */
+.top-right {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  text-align: center;
+}
+
+/* Logout Button */
+.logout-button {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #d9534f;
+  color: white;
+  margin-top: 70px;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.logout-button:hover,
+.esc-button:hover {
+  background-color: #e7302a;
+  transform: translateY(-2px);
+
+}
+
+.logout-button:active,
+.esc-button:active {
+  transform: scale(0.98);
+}
+
+/* Logo Positioning */
+.logo-top-left,
+.logo-top-right {
+  display: inline-block;
+  border: none;
+  border-radius: 5px;
+  width: 50px;
+  height: auto;
+  position: absolute;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+.logo-top-left {
+  top: 20px;
+  left: 20px;
+}
+
+.logo-top-right {
+  top: 20px;
+  right: 20px;
+}
+
+/* Buttons */
+.download-excel-button,
+.inventory-capture-button {
+  background-color: #007bff;
+  color: #fff;
+
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 12px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+}
+
+.inventory-capture-button {
+  padding: 12px 67px;
+}
+
+.download-excel-button {
+  padding: 12px 24px;
+}
+
+.download-excel-button:hover,
+.inventory-capture-button:hover,
+.login-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.download-excel-button:active,
+.inventory-capture-button:active,
+.login-button:active {
+  transform: scale(0.98);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .top-right {
+    top: 10px;
+    right: 10px;
+  }
+
+  .logo {
+    width: 20px;
+  }
+
+  .logout-button {
+    padding: 6px 12px;
+    font-size: 14px;
+    top: 10px;
+    right: 10px;
+  }
+
+
+
+}

@@ -42,7 +42,7 @@ class NextupNumber(models.Model):
     Next_Number = models.CharField(max_length=50)
     prefix = models.CharField(max_length=10, default='ASN')
 
-    NUMBEROFLINES = models.IntegerField(default=5)  #  Line limit stored in DB
+    NUMBEROFLINES = models.IntegerField(default=0)  #  Line limit stored in DB
 
     created_date = models.DateTimeField(blank=True, null=True)
     updated_datetime = models.DateTimeField(blank=True, null=True)

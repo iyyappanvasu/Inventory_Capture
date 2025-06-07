@@ -6,54 +6,14 @@
   {% load static %}
   <link rel="icon" type="image/png" href="{% static 'image/S3 main logopreview.png' %}">
 
-  <link rel="stylesheet" href="{% static 'css/Inventory.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
 </head>
 
 <body>
   <header style="background-color: #f4f6f8;">
-    <img src="{% static 'image/skandh logo.png' %}" style="
-    display: inline-block;
-    border: none;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    z-index: 1000;
-  /* Optional: hover effect */
-  /* Responsive tweak (optional for very small screens) */
-  @media (max-width: 600px) {
-    .logout-button {
-      padding: 6px 12px;
-      font-size: 0.9rem;
-      top: 10px;
-      right: 10px;
-    }}" alt="Company logo" class="logo">
+    <img src="{% static 'image/skandh logo.png' %}" alt="Company logo" class="logo-top-left">
 
-    <img src="{% static 'image/th.jpg' %}" style="
-        display: inline-block;
-        border: none;
-        border-radius: 5px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-      
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        z-index: 1000;
-      /* Optional: hover effect */
-      /* Responsive tweak (optional for very small screens) */
-      @media (max-width: 600px) {
-        .logout-button {
-          padding: 6px 12px;
-          font-size: 0.9rem;
-          top: 10px;
-          right: 10px;
-        }}" alt="Company logo" class="logo">
+    <img src="{% static 'image/th.jpg' %}" alt="Company logo" class="logo-top-right">
 
   </header>
   <div class="container">
@@ -62,29 +22,31 @@
       {% csrf_token %}
       <div class="input-row"><label>Username:</label><input type="text" name="username" autocomplete="off" required>
       </div>
-      <div class="input-row"><label>Password:</label><input type="password" name="password" style="  flex: 1;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        min-width: 0;" required></div>
-      <button type="submit" style=" background-color: blue;
-      color: azure;
-      padding: 7px 12px;
-      border-radius: 5px;
-      margin-top: 10px;
-      border-width: 0px;
-      margin-right: 10px;
-      margin-left: 250px;
-
-      cursor: pointer;">Login</button>
+      <div class="input-row"><label>Password:</label><input type="password" name="password" required></div>
+      <button type="submit" class="login-button">Login</button>
     </form>
     <!--<p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p> -->
+    <!-- Flash Messages -->
     {% if messages %}
     {% for message in messages %}
-    <p>{{ message }}</p>
+    <p class="message-{{ message.tags }} fade-message">{{ message }}</p>
     {% endfor %}
-    {% endif %}
+    {% endif%}
   </div>
+  <script>
+    document.addEventListener('keydown', function (event) {
+      if (event.key === "Escape") {
+        window.location.href = "{% url 'owner' %}";
+      }
+    });
+
+    setTimeout(function () {
+      const messages = document.querySelectorAll(".fade-message");
+      messages.forEach(function (msg) {
+        msg.style.display = "none";
+      });
+    }, 3000);
+  </script>
 </body>
 
 </html>
