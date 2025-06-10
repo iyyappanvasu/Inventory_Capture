@@ -1,3 +1,4 @@
+<!-- Inventory Capture Page -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,6 +6,7 @@
   <meta charset="UTF-8">
   <title>Inventory Capture</title>
   {% load static %}
+  <!-- Linking favicon, stylesheet, and Google fonts -->
   <link rel="icon" type="image/png" href="{% static 'image/S3 main logopreview.png' %}">
   <link rel="stylesheet" href="{% static 'css/style.css' %}" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
@@ -12,17 +14,17 @@
 
 <body>
 
+  <!-- Header with logos -->
   <header>
     <img src="{% static 'image/skandh logo.png' %}" alt="Company logo" class="logo-top-left">
     <img src="{% static 'image/th.jpg' %}" alt="Company logo" class="logo-top-right">
   </header>
 
+  <!-- Main container for inventory form -->
   <div class="container">
     <h2>Inventory Capture</h2>
 
-
-
-    <!-- Form -->
+    <!-- Inventory input form -->
     <form action="" method="POST" id="inventoryForm">
       {% csrf_token %}
       <div class="input-row">
@@ -48,11 +50,12 @@
       <input type="submit" class="btn">
     </form>
 
-    <!-- ESC Button -->
+    <!-- ESC Button to go back to Owner page -->
     <a href="{% url 'owner' %}" title="Escape">
       <button class="esc-button">ESC</button>
     </a>
-    <!-- Flash Messages -->
+
+    <!-- Display flash messages -->
     {% if messages %}
     {% for message in messages %}
     <p class="message-{{ message.tags }} fade-message">{{ message }}</p>
@@ -60,7 +63,7 @@
     {% endif %}
   </div>
 
-  <!-- JavaScript -->
+  <!-- JavaScript: ESC key navigation and message auto-hide -->
   <script>
     document.addEventListener('keydown', function (event) {
       if (event.key === "Escape") {
@@ -75,7 +78,6 @@
       });
     }, 3000);
   </script>
-
 </body>
 
 </html>
