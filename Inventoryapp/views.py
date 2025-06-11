@@ -28,26 +28,27 @@ def login_view(request):
             username = request.POST.get('username')
             password = request.POST.get('password')
             request.session['username'] = username
-            user = authenticate(request, username=username, password=password)
 
-            # If user not found in UserMaster, create new entry
-            if not UserMaster.objects.filter(username=username).exists():
-                hashed_password = make_password(password)
-                UserMaster.objects.create(username=username, password=hashed_password)
-            else:
-                # Update last login timestamp
-                user_obj = UserMaster.objects.get(username=username)
-                user_obj.save()
+            user = authenticate(request, username=username, password=password)
 
             if user:
                 login(request, user)
+                if not UserMaster.objects.filter(username=username).exists():
+                    hashed_password = make_password(password)
+                    UserMaster.objects.create(username=username, password=hashed_password)
+                else:
+                    user_obj = UserMaster.objects.get(username=username)
+                    user_obj.save()
+
                 return redirect('main')
             else:
                 messages.error(request, 'Invalid Username/Password')
         except Exception as e:
             messages.error(request, f"Login Error: {str(e)}")
             logger.exception("Login error")
+
     return render(request, 'login.html')
+
 
 # Handles new user registration
 def register_view(request):

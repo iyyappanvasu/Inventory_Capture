@@ -18,7 +18,7 @@ def export_datas_to_excel(request):
             host='127.0.0.1',
             user='root',
             password='I_iyyappan11',
-            database='inventorycapture',
+            database='sinvcapture',
         )
         cursor = mydb.cursor()
 

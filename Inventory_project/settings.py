@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'Inventory_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME':'InventoryCapture',
+        'NAME':'sinvcapture',
         'USER':'root',
         'PASSWORD':'I_iyyappan11',
         'HOST':'127.0.0.1',
